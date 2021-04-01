@@ -41,9 +41,9 @@ playersRoutes.route("/update/:id").post(function (req, res) {
     player.player_name = req.body.player_name;
     player.player_position = req.body.player_position;
     player.player_team = req.body.player_team;
-    player_elims = req.body.player_elims;
-    player_healing = req.body.player_healing;
-    player_deaths = req.body.player_deaths;
+    player.player_elims = req.body.player_elims;
+    player.player_healing = req.body.player_healing;
+    player.player_deaths = req.body.player_deaths;
     player.player_risk = req.body.player_risk;
 
     player
