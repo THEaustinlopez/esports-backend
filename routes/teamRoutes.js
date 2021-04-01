@@ -1,10 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const Teams = require('../models/teamModel');
+const express = require("express");
+const mongoose = require("mongoose");
+const Teams = require("../models/teamModel");
 const teamsRoutes = express.Router();
-
-
-
 
 //End Points for Teams
 teamsRoutes.route("/").get(function (req, res) {
@@ -29,10 +26,10 @@ teamsRoutes.route("/add").post(function (req, res) {
   team
     .save()
     .then((team) => {
-      res.status(200).json({ team:  "Team added successfully" });
+      res.status(200).json({ team: "Team added successfully" });
     })
     .catch((err) => {
-      console.log(err)
+      console.log(err);
       res.status(400).send("Adding new team failed!", err);
     });
 });
@@ -40,10 +37,12 @@ teamsRoutes.route("/add").post(function (req, res) {
 teamsRoutes.route("/update/:id").post(function (req, res) {
   Teams.findById(req.params.id, function (err, team) {
     if (!team) res.status(404).send("data is not found");
-    else team.team_name = req.body.team_name;
+    else team.team_ep_rank = req.body.team_ep_rank;
     team.team_league_rank = req.body.team_league_rank;
-    team.team_ep_rank = req.body.team_ep_rank;
-    team.team_win_loss = req.body.team_win_loss;
+    team.team_name = req.body.team_name;
+    team.team_wins = req.body.team_wins;
+    team.team_loss = req.body.team_loss;
+    team.team_streak = req.body.team_streak;
 
     team
       .save()
@@ -61,6 +60,5 @@ teamsRoutes.route("/delete/:id").delete(function (req, res) {
     .then((team) => team.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));
 });
-
 
 module.exports = teamsRoutes;
